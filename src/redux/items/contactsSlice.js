@@ -5,7 +5,9 @@ export const contactsSlice = createSlice({
   name: 'phonebook',
   initialState: {
     contacts: initPhoneBook,
+    // dispatch(contactsOperations.addContact())
   },
+  // [dispatch]
   reducers: {
     addSliceContact(state, action) {
       return { ...state, contacts: [...state.contacts, action.payload] };

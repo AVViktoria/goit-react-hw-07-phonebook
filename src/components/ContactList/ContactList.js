@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeSliceContact } from 'redux/items/contactsSlice';
-
+// import * as contactsOperations from 'redux/contactsAll/index';
 export default function ContactList() {
   const dispatch = useDispatch();
   const filter = useSelector(state => state.filter.filter);
