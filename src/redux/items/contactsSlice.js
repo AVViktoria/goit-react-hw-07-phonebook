@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { initPhoneBook } from 'utils/initPhoneBook';
+import { getAllContacts, postAllContacts, delAllContacts } from './index';
 
 export const contactsSlice = createSlice({
   name: 'phonebook',
@@ -8,21 +9,25 @@ export const contactsSlice = createSlice({
     // dispatch(contactsOperations.addContact())
   },
   // [dispatch]
-  reducers: {
-    addSliceContact(state, action) {
-      return { ...state, contacts: [...state.contacts, action.payload] };
-    },
-    removeSliceContact(state, action) {
-      return {
-        ...state,
-        contacts: state.contacts.filter(item => item.id !== action.payload),
-      };
-    },
+  extraReducers: {
+    [getAllContacts.fulfilled]: (_, { payload }) => payload,
+    [postAllContacts.fulfilled]: (state, { payload }) => [...state, payload],
+    [delAllContacts.fulfilled]: (state, { payload }) =>
+      state.filter(contact => contact.id !== payload),
+    // addSliceContact(state, action) {
+    //   return { ...state, contacts: [...state.contacts, action.payload] };
+    // },
+    // removeSliceContact(state, action) {
+    //   return {
+    //     ...state,
+    //     contacts: state.contacts.filter(item => item.id !== action.payload),
+    //   };
+    // },
   },
 });
 
-export const { addSliceContact, removeSliceContact } = contactsSlice.actions;
-export default contactsSlice.reducer;
+// export const { addSliceContact, removeSliceContact } = contactsSlice.actions;
+// export default contactsSlice.reducer;
 
 //*  add   or  this  option      //
 // state.contacts.push(action.payload);

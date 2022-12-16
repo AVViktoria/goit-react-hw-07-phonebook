@@ -29,7 +29,7 @@ export const getContacts = async () => {
 };
 export const postContacts = async contact => {
   try {
-    const { data } = await axios.post('/contacts', { ...contacts });
+    const { data } = await axios.post('/contacts', { ...contact });
     console.log('add contact', data);
     return data;
   } catch (error) {
@@ -38,7 +38,7 @@ export const postContacts = async contact => {
 };
 export const deleteContacts = async id => {
   try {
-    const { data } = await axios.delete('/contacts/${id}');
+    const { data } = await axios.delete(`/contacts/${id}`);
     console.log('del contact', data);
     return data;
   } catch (error) {

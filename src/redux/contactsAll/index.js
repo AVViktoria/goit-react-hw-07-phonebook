@@ -1,3 +1,3 @@
-export * from './contactsActions';
+export * from './contactsSelectors';
 export * from './contactsOperations';
 export * from './contactsReducer';
