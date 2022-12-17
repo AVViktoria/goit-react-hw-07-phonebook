@@ -15,7 +15,7 @@ export const getAllContacts = createAsyncThunk(
 
 export const postAllContacts = createAsyncThunk(
   'contacts/postAllContacts',
-  async (contactData, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const allContactsPost = await contactsApi.postContacts();
       return allContactsPost;

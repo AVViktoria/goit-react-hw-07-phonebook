@@ -10,24 +10,65 @@ export const contactsSlice = createSlice({
   name: 'phonebook',
   initialState: {
     contacts: initPhoneBook,
-    // dispatch(contactsOperations.addContact())
+    isLoading: false,
+    error: null,
   },
-  // [dispatch]
-  extraReducers: {
-    [getAllContacts.fulfilled]: (_, { payload }) => payload,
-    [postAllContacts.fulfilled]: (state, { payload }) => [...state, payload],
-    [delAllContacts.fulfilled]: (state, { payload }) =>
-      state.filter(contact => contact.id !== payload),
-    // addSliceContact(state, action) {
-    //   return { ...state, contacts: [...state.contacts, action.payload] };
-    // },
-    // removeSliceContact(state, action) {
-    //   return {
-    //     ...state,
-    //     contacts: state.contacts.filter(item => item.id !== action.payload),
-    //   };
-    // },
+
+  extraReducers: builder => {
+    //*    getAllContacts     //
+    builder.addCase(getAllContacts.fulfilled, (state, action) => {
+      state.contacts.items = action.payload;
+      state.contacts.isLoading = false;
+    });
+    builder.addCase(getAllContacts.pending, state => {
+      state.contacts.isLoading = true;
+    });
+    builder.addCase(getAllContacts.rejected, (state, action) => {
+      state.contacts.error = action.payload;
+      state.contacts.isLoading = false;
+    });
+    //*    postAllContacts     //
+    builder.addCase(postAllContacts.fulfilled, (state, action) => {
+      state.contacts.push(action.payload);
+      state.contacts.isLoading = false;
+    });
+    builder.addCase(postAllContacts.pending, state => {
+      state.contacts.isLoading = true;
+    });
+    builder.addCase(postAllContacts.rejected, (state, action) => {
+      state.contacts.error = action.payload;
+      state.contacts.isLoading = false;
+    });
+    //*    delAllContacts     //
+    builder.addCase(delAllContacts.fulfilled, (state, action) => {
+      state.contacts.filter(item => item.id !== action.payload);
+      state.contacts.isLoading = false;
+    });
+    builder.addCase(delAllContacts.pending, state => {
+      state.contacts.isLoading = true;
+    });
+    builder.addCase(delAllContacts.rejected, (state, action) => {
+      state.contacts.error = action.payload;
+      state.contacts.isLoading = false;
+    });
   },
+  // [getAllContacts.fulfilled]: (_, { payload }) => payload,
+  // [getAllContacts.pending]: (_, { payload }) => payload,
+
+  // [getAllContacts.error]: (_, { payload }) => payload,
+  // [postAllContacts.fulfilled]: (state, { payload }) => [...state, payload],
+  // [delAllContacts.fulfilled]: (state, { payload }) =>
+  //   state.filter(contact => contact.id !== payload),
+  // addSliceContact(state, action) {
+  //   return { ...state, contacts: [...state.contacts, action.payload] };
+  // },
+  // removeSliceContact(state, action) {
+  //   return {
+  //     ...state,
+  //     contacts: state.contacts.filter(item => item.id !== action.payload),
+  //   };
+  // },
+  // },
 });
 
 // export const { addSliceContact, removeSliceContact } = contactsSlice.actions;

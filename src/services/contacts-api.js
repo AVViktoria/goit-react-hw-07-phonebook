@@ -40,7 +40,8 @@ export const deleteContacts = async id => {
   try {
     const { data } = await axios.delete(`/contacts/${id}`);
     console.log('del contact', data);
-    return data;
+    // return data;
+    return data.id;
   } catch (error) {
     return error.message;
   }

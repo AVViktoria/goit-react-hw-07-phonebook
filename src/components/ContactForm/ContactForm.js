@@ -6,7 +6,7 @@ import { postAllContacts } from '../../redux/contactsAll/contactsOperations';
 
 import { itemsSelector } from 'redux/contactsAll/contactsSelectors';
 //*      Libraries      //
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
@@ -28,7 +28,7 @@ export default function ContactForm() {
       alert(`${name} is already in contacts`);
     } else {
       const contact = {
-        id: nanoid(),
+        // id: nanoid(),
         name,
         number,
         completed: false,
