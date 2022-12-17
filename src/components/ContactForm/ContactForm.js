@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { addSliceContact } from 'redux/items/contactsSlice';
+
+import { postAllContacts } from '../../redux/contactsAll/contactsOperations';
+
+import { itemsSelector } from 'redux/contactsAll/contactsSelectors';
 //*      Libraries      //
 import { nanoid } from 'nanoid';
 
 export default function ContactForm() {
-  const contacts = useSelector(state => state.phonebook.contacts);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
+  const contacts = useSelector(itemsSelector);
 
   //*  берем  данные по сабмиту  кнопки  //
 
@@ -31,7 +34,7 @@ export default function ContactForm() {
         completed: false,
       };
 
-      dispatch(addSliceContact(contact));
+      dispatch(postAllContacts(contact));
       reset();
     }
   };

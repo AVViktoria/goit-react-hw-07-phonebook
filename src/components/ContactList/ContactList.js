@@ -1,12 +1,24 @@
-import React from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeSliceContact } from 'redux/items/contactsSlice';
-// import * as contactsOperations from 'redux/contactsAll/index';
+import {
+  getAllContacts,
+  delAllContacts,
+} from '../../redux/contactsAll/contactsOperations';
+import {
+  itemsSelector,
+  filterSelector,
+} from '../../redux/contactsAll/contactsSelectors';
+// import { itemsContacts } from '../../redux/contactsAll';
+// import { removeSliceContact } from 'redux/items/contactsSlice';
+import * as contactsOperations from 'redux/contactsAll/index';
 export default function ContactList() {
   const dispatch = useDispatch();
-  const filter = useSelector(state => state.filter.filter);
-  const contacts = useSelector(state => state.phonebook.contacts);
+  const contacts = useSelector(itemsSelector);
+  const filter = useSelector(filterSelector);
+  console.log(contacts);
+  console.log(filter);
+  // const contacts = useSelector(state => state.phonebook.contacts);
   //*  фильтруем по имени  //
   const getVisibleContacts = () => {
     const normalizedFilter = filter.toLowerCase();
@@ -15,7 +27,17 @@ export default function ContactList() {
       contact.name.toLowerCase().includes(normalizedFilter)
     );
   };
+
+  useEffect(() => {
+    dispatch(contactsOperations.getAllContacts());
+  }, [dispatch]);
+
   const visibleContacts = getVisibleContacts();
+
+  const deleteContact = id => {
+    dispatch(delAllContacts(id));
+  };
+
   return (
     <ul>
       {visibleContacts.map(({ id, name, number }) => {
@@ -28,7 +50,7 @@ export default function ContactList() {
               className="listButton"
               type="button"
               id={id}
-              onClick={() => dispatch(removeSliceContact(id))}
+              onClick={() => dispatch(deleteContact(id))}
             >
               x
             </button>

@@ -1,6 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { initPhoneBook } from 'utils/initPhoneBook';
-import { getAllContacts, postAllContacts, delAllContacts } from './index';
+import {
+  getAllContacts,
+  postAllContacts,
+  delAllContacts,
+} from '../contactsAll';
 
 export const contactsSlice = createSlice({
   name: 'phonebook',
