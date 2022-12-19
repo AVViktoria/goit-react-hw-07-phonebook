@@ -6,35 +6,16 @@ import {
   delAllContacts,
 } from '../../redux/contactsAll/contactsOperations';
 import {
-  itemsSelector,
-  filterSelector,
   getIsLoadingSelector,
   getFilteredContacts,
 } from '../../redux/contactsAll/contactsSelectors';
-// import { itemsContacts } from '../../redux/contactsAll';
-// import { removeSliceContact } from 'redux/items/contactsSlice';
-// import * as contactsOperations from 'redux/contactsAll/index';
+
 export default function ContactList() {
   const dispatch = useDispatch();
   const contacts = useSelector(getFilteredContacts);
-  const filter = useSelector(filterSelector);
   const isLoading = useSelector(getIsLoadingSelector);
-  useSelector(getFilteredContacts);
-  console.log(contacts);
-  console.log(filter);
 
-  // const contacts = useSelector(state => state.phonebook.contacts);
-  //*  фильтруем по имени  //
-  //   const getVisibleContacts = () => {
-  //     const normalizedFilter = filter.toLowerCase();
-
-  //     return contacts.filter(contact =>
-  //       contact.name.toLowerCase().includes(normalizedFilter)
-  //     );
-  //   };
-  //  const visibleContacts = getVisibleContacts();
   useEffect(() => {
-    // dispatch(contactsOperations.getAllContacts());
     dispatch(getAllContacts());
   }, [dispatch]);
 
@@ -48,7 +29,7 @@ export default function ContactList() {
         <div>Loading...</div>
       ) : (
         <ul>
-          {contacts.map(({ id, name, number }) => {
+          {contacts.map(({ id, name, number, contact }) => {
             return (
               <li key={id} className="listContacts">
                 <span className="contact">
@@ -58,7 +39,7 @@ export default function ContactList() {
                   className="listButton"
                   type="button"
                   id={id}
-                  onClick={() => dispatch(deleteContact(id))}
+                  onClick={() => deleteContact(id)}
                 >
                   x
                 </button>

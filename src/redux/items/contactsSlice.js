@@ -4,7 +4,7 @@ import {
   getAllContacts,
   postAllContacts,
   delAllContacts,
-} from '../contactsAll';
+} from '../contactsAll/contactsOperations';
 
 export const contactsSlice = createSlice({
   name: 'phonebook',
@@ -17,39 +17,43 @@ export const contactsSlice = createSlice({
   extraReducers: builder => {
     //*    getAllContacts     //
     builder.addCase(getAllContacts.fulfilled, (state, action) => {
-      state.contacts.items = action.payload;
-      state.contacts.isLoading = false;
+      state.contacts = action.payload;
+      state.isLoading = false;
     });
     builder.addCase(getAllContacts.pending, state => {
-      state.contacts.isLoading = true;
+      state.isLoading = true;
     });
     builder.addCase(getAllContacts.rejected, (state, action) => {
-      state.contacts.error = action.payload;
-      state.contacts.isLoading = false;
+      state.error = action.payload;
+      state.isLoading = false;
     });
     //*    postAllContacts     //
     builder.addCase(postAllContacts.fulfilled, (state, action) => {
       state.contacts.push(action.payload);
-      state.contacts.isLoading = false;
+      state.isLoading = false;
     });
     builder.addCase(postAllContacts.pending, state => {
-      state.contacts.isLoading = true;
+      state.isLoading = true;
     });
     builder.addCase(postAllContacts.rejected, (state, action) => {
-      state.contacts.error = action.payload;
-      state.contacts.isLoading = false;
+      state.error = action.payload;
+      state.isLoading = false;
     });
     //*    delAllContacts     //
     builder.addCase(delAllContacts.fulfilled, (state, action) => {
-      state.contacts.filter(item => item.id !== action.payload);
-      state.contacts.isLoading = false;
+      // state.contacts.filter(item => item.id !== action.payload);
+      const index = state.contacts.findIndex(
+        contact => contact.id === action.payload
+      );
+      state.contacts.splice(index, 1);
+      state.isLoading = false;
     });
     builder.addCase(delAllContacts.pending, state => {
-      state.contacts.isLoading = true;
+      state.isLoading = true;
     });
     builder.addCase(delAllContacts.rejected, (state, action) => {
-      state.contacts.error = action.payload;
-      state.contacts.isLoading = false;
+      state.error = action.payload;
+      state.isLoading = false;
     });
   },
   // [getAllContacts.fulfilled]: (_, { payload }) => payload,

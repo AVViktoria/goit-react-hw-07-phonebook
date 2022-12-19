@@ -5,8 +5,10 @@ export const filterSlice = createSlice({
   initialState: {
     filter: '',
   },
-  reducer: {
-    filterChanges: (_, { payload }) => payload,
+  reducers: {
+    filterChanges(state, action) {
+      state.filter = action.payload;
+    },
   },
 });
 

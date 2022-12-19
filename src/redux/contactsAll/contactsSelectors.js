@@ -10,16 +10,5 @@ export const getFilteredContacts = createSelector(
       return contact.name.toLowerCase().includes(filter.toLowerCase());
     });
     return visibleContacts;
-
-    // const getVisibleContacts = () => {
-    //   const normalizedFilter = filter.toLowerCase();
-    //   return contacts.filter(contact =>
-    //     contact.name.toLowerCase().includes(normalizedFilter)
-    //   );
-    // };
-    // const visibleContacts = getVisibleContacts();
   }
 );
-// const filter = useSelector(state => state.filter.filter);
-// const contacts = useSelector(state => state.phonebook.contacts);
-//*  фильтруем по имени  //

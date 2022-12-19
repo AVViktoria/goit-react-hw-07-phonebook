@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { filterChanges } from 'redux/filter/filterSlice';
+import { filterSelector } from '../../redux/contactsAll/contactsSelectors';
 
-export default function Filter({ value }) {
+const Filter = () => {
   const dispatch = useDispatch();
+  const filter = useSelector(filterSelector);
+
   const onValueChanges = e => {
-    dispatch(filterChanges(e.currentTarget.value));
+    const filterValue = e.target.value;
+    dispatch(filterChanges(filterValue));
   };
 
   return (
@@ -17,7 +21,7 @@ export default function Filter({ value }) {
           <input
             className="inputContent"
             type="text"
-            value={value}
+            value={filter}
             onChange={onValueChanges}
             name="filter"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -28,8 +32,9 @@ export default function Filter({ value }) {
       </div>
     </form>
   );
-}
+};
 Filter.prototype = {
   value: PropTypes.string.isRequired,
   onValueChanges: PropTypes.func.isRequired,
 };
+export default Filter;

@@ -1,12 +1,8 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { postAllContacts } from '../../redux/contactsAll/contactsOperations';
-
-import { itemsSelector } from 'redux/contactsAll/contactsSelectors';
-//*      Libraries      //
-// import { nanoid } from 'nanoid';
+import { itemsSelector } from '../../redux/contactsAll/contactsSelectors';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
@@ -18,9 +14,7 @@ export default function ContactForm() {
 
   const addContact = evt => {
     evt.preventDefault();
-    // const name = evt.currentTarget.name.value;
-    // const number = evt.currentTarget.number.value;
-    const checkByName = contacts.some(
+    const checkByName = contacts?.some(
       item => item.name.toLowerCase() === name.toLowerCase()
     );
 
@@ -28,7 +22,6 @@ export default function ContactForm() {
       alert(`${name} is already in contacts`);
     } else {
       const contact = {
-        // id: nanoid(),
         name,
         number,
         completed: false,
@@ -38,6 +31,7 @@ export default function ContactForm() {
       reset();
     }
   };
+
   //*  очищаем   сбрасываем   форму  //
   const reset = evt => {
     setName('');
@@ -45,14 +39,16 @@ export default function ContactForm() {
     // evt.target.name.value = '';
     // evt.target.number.value = '';
   };
+
   // *  прописываем  внутри инпута   //
   const handleChange = e => {
-    switch (e.currentTarget.name) {
+    const { name, value } = e.currentTarget;
+    switch (name) {
       case 'name':
-        setName(e.currentTarget.value);
+        setName(value);
         break;
       case 'number':
-        setNumber(e.currentTarget.value);
+        setNumber(value);
         break;
       default:
         return;
@@ -103,3 +99,10 @@ ContactForm.prototype = {
   name: PropTypes.string.isRequired,
   number: PropTypes.number.isRequired,
 };
+
+// const addContact = e => {
+//   e.preventDefault();
+//   const form = e.currentTarget;
+//   dispatch(postAllContacts({ name, number }));
+//   form.reset();
+// };

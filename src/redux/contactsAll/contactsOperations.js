@@ -15,9 +15,9 @@ export const getAllContacts = createAsyncThunk(
 
 export const postAllContacts = createAsyncThunk(
   'contacts/postAllContacts',
-  async (_, { rejectWithValue }) => {
+  async (contact, { rejectWithValue }) => {
     try {
-      const allContactsPost = await contactsApi.postContacts();
+      const allContactsPost = await contactsApi.postContacts(contact);
       return allContactsPost;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -27,9 +27,9 @@ export const postAllContacts = createAsyncThunk(
 
 export const delAllContacts = createAsyncThunk(
   'contacts/delAllContacts',
-  async (contactId, { rejectWithValue }) => {
+  async (id, { rejectWithValue }) => {
     try {
-      const allContactsDel = await contactsApi.deleteContacts();
+      const allContactsDel = await contactsApi.deleteContacts(id);
       return allContactsDel;
     } catch (error) {
       return rejectWithValue(error.message);
