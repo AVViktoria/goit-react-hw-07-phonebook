@@ -36,3 +36,14 @@ export const delAllContacts = createAsyncThunk(
     }
   }
 );
+export const editContacts = createAsyncThunk(
+  'contacts/editContacts',
+  async (contact, { rejectWithValue }) => {
+    try {
+      const allContactsDel = await contactsApi.putContacts(contact.id);
+      return allContactsDel;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

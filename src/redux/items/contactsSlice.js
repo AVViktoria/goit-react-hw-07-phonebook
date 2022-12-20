@@ -4,6 +4,7 @@ import {
   getAllContacts,
   postAllContacts,
   delAllContacts,
+  editContacts,
 } from '../contactsAll/contactsOperations';
 
 export const contactsSlice = createSlice({
@@ -27,6 +28,7 @@ export const contactsSlice = createSlice({
       state.error = action.payload;
       state.isLoading = false;
     });
+
     //*    postAllContacts     //
     builder.addCase(postAllContacts.fulfilled, (state, action) => {
       state.contacts.push(action.payload);
@@ -39,6 +41,7 @@ export const contactsSlice = createSlice({
       state.error = action.payload;
       state.isLoading = false;
     });
+
     //*    delAllContacts     //
     builder.addCase(delAllContacts.fulfilled, (state, action) => {
       // state.contacts.filter(item => item.id !== action.payload);
@@ -52,6 +55,22 @@ export const contactsSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(delAllContacts.rejected, (state, action) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    });
+
+    //*    editContacts     //
+    builder.addCase(editContacts.fulfilled, (state, action) => {
+      const index = state.contacts.findIndex(
+        contact => contact.id === action.payload.id
+      );
+      state.contacts.splice(index, 1, action.payload);
+      state.isLoading = false;
+    });
+    builder.addCase(editContacts.pending, state => {
+      state.isLoading = true;
+    });
+    builder.addCase(editContacts.rejected, (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
     });
