@@ -1,10 +1,7 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getAllContacts,
-  // delAllContacts,
-} from '../../redux/contactsAll/contactsOperations';
+import { getAllContacts } from '../../redux/contactsAll/contactsOperations';
 import {
   getIsLoadingSelector,
   getFilteredContacts,
@@ -19,18 +16,14 @@ export default function ContactList() {
     dispatch(getAllContacts());
   }, [dispatch]);
 
-  // const deleteContact = id => {
-  //   dispatch(delAllContacts(id));
-  // };
-
   return (
     <>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
         <ul>
-          {contacts.map(({ id, contact }) => {
-            return <ContactListItem key={id} contact={contact} />;
+          {contacts.map((contact, id) => {
+            return <ContactListItem key={contact.id} contact={contact} />;
           })}
         </ul>
       )}

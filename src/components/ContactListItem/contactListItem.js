@@ -1,7 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { delAllContacts } from '../../redux/contactsAll/contactsOperations';
-import { editContacts } from '../../redux/contactsAll/contactsOperations';
+import PropTypes from 'prop-types';
+import {
+  delAllContacts,
+  editContacts,
+} from '../../redux/contactsAll/contactsOperations';
 
 export const ContactListItem = ({ contact }) => {
   const dispatch = useDispatch();
@@ -22,14 +25,14 @@ export const ContactListItem = ({ contact }) => {
     }
   };
 
-  // const deleteContact = id => {
-  //   dispatch(delAllContacts(id));
-  // };
+  const deleteContactItem = contactId => {
+    dispatch(delAllContacts(contactId));
+  };
 
   const handleEdit = () => {
     setIsEdit(prev => !prev);
-    if ((isEdit && name !== contact.name) || number !== contact.number) {
-      dispatch(editContacts({ ...contact, name, number }));
+    if (isEdit && (name !== contact.name || number !== contact.number)) {
+      return dispatch(editContacts({ ...contact, name, number }));
     }
   };
 
@@ -60,7 +63,8 @@ export const ContactListItem = ({ contact }) => {
         </>
       ) : (
         <span>
-          <span className="contact">Name: {contact.name}</span>: {'  '}
+          <span className="contact">Name: {contact.name}</span>
+          {'  '}
           <span className="contact">Number: {contact.number}</span>
         </span>
       )}
@@ -70,10 +74,18 @@ export const ContactListItem = ({ contact }) => {
       <button
         className="listButton"
         type="button"
-        onClick={() => dispatch(delAllContacts(contact.id))}
+        onClick={() => deleteContactItem(contact.id)}
       >
         x
       </button>
     </li>
   );
+};
+
+ContactListItem.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      contact: PropTypes.string.isRequired,
+    })
+  ),
 };
