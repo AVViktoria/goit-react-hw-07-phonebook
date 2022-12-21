@@ -26,9 +26,9 @@ export const deleteContacts = async id => {
     return error.message;
   }
 };
-export const putContacts = async id => {
+export const putContacts = async (contact, id) => {
   try {
-    const { data } = await axios.put(`/contacts/${id}`);
+    const { data } = await axios.put(`/contacts/${contact.id}`);
     return data;
   } catch (error) {
     return error.message;

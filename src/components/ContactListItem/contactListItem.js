@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { delAllContacts } from '../../redux/contactsAll/contactsOperations';
 import { editContacts } from '../../redux/contactsAll/contactsOperations';
 
-export const ContactListItem = ({ contact, id }) => {
+export const ContactListItem = ({ contact }) => {
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false);
   const [name, setName] = useState(contact.name);
@@ -22,9 +22,9 @@ export const ContactListItem = ({ contact, id }) => {
     }
   };
 
-  const deleteContact = id => {
-    dispatch(delAllContacts(id));
-  };
+  // const deleteContact = id => {
+  //   dispatch(delAllContacts(id));
+  // };
 
   const handleEdit = () => {
     setIsEdit(prev => !prev);
@@ -64,14 +64,13 @@ export const ContactListItem = ({ contact, id }) => {
           <span className="contact">Number: {contact.number}</span>
         </span>
       )}
-      <button className="listButton" type="button" id={id} onClick={handleEdit}>
+      <button className="listButton" type="button" onClick={handleEdit}>
         {isEdit ? 'Save' : 'Edit'}
       </button>
       <button
         className="listButton"
         type="button"
-        id={id}
-        onClick={() => deleteContact(id)}
+        onClick={() => dispatch(delAllContacts(contact.id))}
       >
         x
       </button>

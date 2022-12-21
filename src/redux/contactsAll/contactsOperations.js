@@ -40,7 +40,7 @@ export const editContacts = createAsyncThunk(
   'contacts/editContacts',
   async (contact, { rejectWithValue }) => {
     try {
-      const allContactsDel = await contactsApi.putContacts(contact.id);
+      const allContactsDel = await contactsApi.putContacts(contact);
       return allContactsDel;
     } catch (error) {
       return rejectWithValue(error.message);
