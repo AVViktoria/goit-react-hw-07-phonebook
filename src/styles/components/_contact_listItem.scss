@@ -1,3 +1,11 @@
+.titleContact {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+.contact {
+  margin-bottom: 5px;
+}
 .listButton {
   background-color: rgba(0, 0, 0, 0.5);
   // display: inline-block;

@@ -75,6 +75,7 @@ export const contactsSlice = createSlice({
       state.isLoading = false;
     });
   },
+
   // [getAllContacts.fulfilled]: (_, { payload }) => payload,
   // [getAllContacts.pending]: (_, { payload }) => payload,
 
@@ -93,7 +94,7 @@ export const contactsSlice = createSlice({
   // },
   // },
 });
-
+export const contactsReducer = contactsSlice.reducer;
 // export const { addSliceContact, removeSliceContact } = contactsSlice.actions;
 // export default contactsSlice.reducer;
 

@@ -66,6 +66,7 @@ export default function ContactForm() {
             value={name}
             onChange={handleChange}
             name="name"
+            placeholder="Name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name"
             required
@@ -81,6 +82,7 @@ export default function ContactForm() {
             value={number}
             onChange={handleChange}
             name="number"
+            placeholder="XXX XXX XXXX"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
             title="Number"
             required

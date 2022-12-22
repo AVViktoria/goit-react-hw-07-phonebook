@@ -9,7 +9,7 @@ const Filter = () => {
   const filter = useSelector(filterSelector);
 
   const onValueChanges = e => {
-    const filterValue = e.target.value;
+    const filterValue = e.currentTarget.value;
     dispatch(filterChanges(filterValue));
   };
 
